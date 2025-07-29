@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robo Raptors Robotics Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #004080;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #0055aa;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .achievements {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .timeline ul {
+      border-left: 4px solid #007BFF;
+      padding-left: 20px;
+    }
+
+    .timeline li {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Robo Raptors Robotics Hub</h1>
+    <p>Official website of the 2205H VEX IQ Team</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#popup">State Results</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      The 2205H RoboRaptors VEX IQ team is proud to be part of Robospark Labs, a community of advanced teams focused on innovation and collaboration in robotics. This season, we won the League Teamwork Championship and qualified for the Washington State Championship, where we made it all the way to the Finals. Our journey reflects months of hard work, strategic design, and precise driving. From early scrimmages to high-stakes matches, we’ve grown as both engineers and teammates. Being part of Robospark Labs has helped us level up our skills and push the boundaries of what’s possible in VEX IQ. We’re excited to keep improving, competing, and inspiring others along the way.
+    </p>
+  </section>
+
+  <section id="achievements">
+    <h2>🏆 Team Achievements</h2>
+    <div class="achievements">
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li>🥇 1st Place – League Teamwork Championship</li>
+        <li>📜 Qualified for Washington State Championship</li>
+        <li>⚔️ Finalist – Washington State Championship 2025</li>
+        <li>🤖 Member Team – Robospark Labs</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="timeline" class="timeline">
+    <h2>📅 Our Season Timeline</h2>
+    <ul>
+      <li><strong>September:</strong> Kickoff meeting & early builds</li>
+      <li><strong>November:</strong> Scrimmages + first driving tests</li>
+      <li><strong>January:</strong> League competitions → 🥇 1st in Teamwork!</li>
+      <li><strong>March:</strong> Qualified for State Championship</li>
+      <li><strong>April:</strong> Made it to the Finals at WA State! ⚔️</li>
+    </ul>
+  </section>
+
+  <section id="popup">
+    <h2>📤 See Our Full State Performance</h2>
+    <button id="openStateModal">View Full State Results</button>
+  </section>
+
+  <!-- Modal -->
+  <div id="stateModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="stateCloseBtn">&times;</span>
+      <h2>🏁 WA State Championship – Full Results</h2>
+      <ul>
+        <li>⚔️ Finalist – Teamwork Challenge</li>
+        <li>🤖 Strong autonomous score in Programming Skills</li>
+        <li>🛠 Consistent performance across all matches</li>
+        <li>👏 Collaborated with alliance teams for Finals</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("stateModal");
+    const openBtn = document.getElementById("openStateModal");
+    const closeBtn = document.getElementById("stateCloseBtn");
+
+    openBtn.onclick = () => {
+      modal.style.display = "block";
+    }
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    }
+
+    window.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
