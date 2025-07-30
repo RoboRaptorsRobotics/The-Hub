@@ -1,171 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Robo Raptors Robotics Hub</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-      background-color: #f9f9f9;
-    }
-
-    header {
-      background-color: #004080;
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #0055aa;
-      padding: 10px 0;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .achievements {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .timeline ul {
-      border-left: 4px solid #007BFF;
-      padding-left: 20px;
-    }
-
-    .timeline li {
-      margin-bottom: 20px;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-      position: absolute;
-      right: 20px;
-      top: 10px;
-    }
-
-    .close:hover {
-      color: #000;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-50 text-gray-800">
 
-<body>
-
-  <header>
-    <h1>Robo Raptors Robotics Hub</h1>
-    <p>Official website of the 2205H VEX IQ Team</p>
-  </header>
-
-  <nav>
-    <a href="#about">About</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#timeline">Timeline</a>
-    <a href="#popup">State Results</a>
+  <!-- Navbar -->
+  <nav class="bg-blue-900 text-white fixed w-full top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="text-xl font-bold">Robo Raptors</div>
+        <div class="space-x-6 hidden md:flex">
+          <a href="#about" class="hover:underline">About</a>
+          <a href="#achievements" class="hover:underline">Achievements</a>
+          <a href="#timeline" class="hover:underline">Timeline</a>
+          <button id="openStateModalBtn" class="hover:underline focus:outline-none">State Results</button>
+        </div>
+      </div>
+    </div>
   </nav>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p>
-      The 2205H RoboRaptors VEX IQ team is proud to be part of Robospark Labs, a community of advanced teams focused on innovation and collaboration in robotics. This season, we won the League Teamwork Championship and qualified for the Washington State Championship, where we made it all the way to the Finals. Our journey reflects months of hard work, strategic design, and precise driving. From early scrimmages to high-stakes matches, we’ve grown as both engineers and teammates. Being part of Robospark Labs has helped us level up our skills and push the boundaries of what’s possible in VEX IQ. We’re excited to keep improving, competing, and inspiring others along the way.
+  <!-- Spacer for fixed navbar -->
+  <div class="h-16"></div>
+
+  <!-- Hero Section -->
+  <section id="about" class="max-w-4xl mx-auto px-4 py-10 text-center">
+    <h1 class="text-4xl font-extrabold mb-4 text-blue-900">Welcome to the Robo Raptors Robotics Hub</h1>
+    <p class="text-lg max-w-xl mx-auto leading-relaxed">
+      The 2205H RoboRaptors VEX IQ team is proud to be part of <span class="font-semibold">Robospark Labs</span>, a community of advanced teams focused on innovation and collaboration in robotics. This season, we won the League Teamwork Championship and qualified for the Washington State Championship, where we made it all the way to the Finals. Our journey reflects months of hard work, strategic design, and precise driving. From early scrimmages to high-stakes matches, we’ve grown as both engineers and teammates. We’re excited to keep improving, competing, and inspiring others along the way.
     </p>
   </section>
 
-  <section id="achievements">
-    <h2>🏆 Team Achievements</h2>
-    <div class="achievements">
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li>🥇 1st Place – League Teamwork Championship</li>
-        <li>📜 Qualified for Washington State Championship</li>
-        <li>⚔️ Finalist – Washington State Championship 2025</li>
-        <li>🤖 Member Team – Robospark Labs</li>
-      </ul>
+  <!-- Achievements Section -->
+  <section id="achievements" class="max-w-4xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-6 text-blue-900 text-center">🏆 Team Achievements</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
+        <div class="text-4xl text-yellow-400">🥇</div>
+        <div>
+          <h3 class="font-semibold text-lg">League Teamwork Championship</h3>
+          <p>1st Place in the league teamwork challenge.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
+        <div class="text-4xl text-blue-600">📜</div>
+        <div>
+          <h3 class="font-semibold text-lg">Qualified for State</h3>
+          <p>Earned spot in the Washington State Championship.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
+        <div class="text-4xl text-red-500">⚔️</div>
+        <div>
+          <h3 class="font-semibold text-lg">Finalist at State Championship</h3>
+          <p>Reached the finals round in the state championship.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
+        <div class="text-4xl text-green-500">🤖</div>
+        <div>
+          <h3 class="font-semibold text-lg">Robospark Labs</h3>
+          <p>Active member team collaborating with other high-level teams.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="timeline" class="timeline">
-    <h2>📅 Our Season Timeline</h2>
-    <ul>
-      <li><strong>September:</strong> Kickoff meeting & early builds</li>
-      <li><strong>November:</strong> Scrimmages + first driving tests</li>
-      <li><strong>January:</strong> League competitions → 🥇 1st in Teamwork!</li>
-      <li><strong>March:</strong> Qualified for State Championship</li>
-      <li><strong>April:</strong> Made it to the Finals at WA State! ⚔️</li>
-    </ul>
+  <!-- Timeline Section -->
+  <section id="timeline" class="max-w-4xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-6 text-blue-900 text-center">📅 Our Season Timeline</h2>
+    <ol class="border-l-4 border-blue-600 max-w-xl mx-auto space-y-6">
+      <li class="ml-6">
+        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
+        <div class="mt-1">
+          <h3 class="font-semibold text-lg">September</h3>
+          <p>Kickoff meeting & early builds.</p>
+        </div>
+      </li>
+      <li class="ml-6">
+        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
+        <div class="mt-1">
+          <h3 class="font-semibold text-lg">November</h3>
+          <p>Scrimmages and first driving tests.</p>
+        </div>
+      </li>
+      <li class="ml-6">
+        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
+        <div class="mt-1">
+          <h3 class="font-semibold text-lg">January</h3>
+          <p>League competitions – won 1st place in Teamwork Challenge.</p>
+        </div>
+      </li>
+      <li class="ml-6">
+        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
+        <div class="mt-1">
+          <h3 class="font-semibold text-lg">March</h3>
+          <p>Qualified for the State Championship.</p>
+        </div>
+      </li>
+      <li class="ml-6">
+        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
+        <div class="mt-1">
+          <h3 class="font-semibold text-lg">April</h3>
+          <p>Reached the Finals at WA State Championship.</p>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <section id="popup">
-    <h2>📤 See Our Full State Performance</h2>
-    <button id="openStateModal">View Full State Results</button>
+  <!-- State Results Modal Trigger -->
+  <section class="max-w-4xl mx-auto px-4 py-10 text-center">
+    <button id="openStateModalBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold focus:outline-none focus:ring-4 focus:ring-green-400">
+      View Full State Championship Results
+    </button>
   </section>
 
   <!-- Modal -->
-  <div id="stateModal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="stateCloseBtn">&times;</span>
-      <h2>🏁 WA State Championship – Full Results</h2>
-      <ul>
+  <div id="stateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg max-w-lg w-11/12 p-6 relative">
+      <button id="closeStateModalBtn" class="absolute top-3 right-3 text-gray-700 hover:text-gray-900 text-2xl font-bold">&times;</button>
+      <h2 class="text-2xl font-bold mb-4 text-blue-900">🏁 WA State Championship – Full Results</h2>
+      <ul class="list-disc list-inside space-y-2 text-left">
         <li>⚔️ Finalist – Teamwork Challenge</li>
         <li>🤖 Strong autonomous score in Programming Skills</li>
         <li>🛠 Consistent performance across all matches</li>
@@ -175,23 +133,26 @@
   </div>
 
   <script>
-    const modal = document.getElementById("stateModal");
-    const openBtn = document.getElementById("openStateModal");
-    const closeBtn = document.getElementById("stateCloseBtn");
+    const openBtn = document.getElementById('openStateModalBtn');
+    const modal = document.getElementById('stateModal');
+    const closeBtn = document.getElementById('closeStateModalBtn');
 
-    openBtn.onclick = () => {
-      modal.style.display = "block";
-    }
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
 
-    closeBtn.onclick = () => {
-      modal.style.display = "none";
-    }
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    });
 
-    window.onclick = (e) => {
+    window.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.style.display = "none";
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
       }
-    }
+    });
   </script>
 
 </body>
