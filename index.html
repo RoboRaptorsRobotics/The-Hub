@@ -1,159 +1,382 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Robo Raptors Robotics Hub</title>
+  <link rel="icon" href="https://i.postimg.cc/WzZH8Qvj/Screenshot-2025-07-17-150730.png" type="image/png" />
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px;
+      scroll-snap-type: y mandatory;
+      height: 100%;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+    }
 
-  <!-- Navbar -->
-  <nav class="bg-blue-900 text-white fixed w-full top-0 z-50 shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <div class="text-xl font-bold">Robo Raptors</div>
-        <div class="space-x-6 hidden md:flex">
-          <a href="#about" class="hover:underline">About</a>
-          <a href="#achievements" class="hover:underline">Achievements</a>
-          <a href="#timeline" class="hover:underline">Timeline</a>
-          <button id="openStateModalBtn" class="hover:underline focus:outline-none">State Results</button>
+    #bg-slideshow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      filter: brightness(0.5);
+    }
+    #overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 0;
+    }
+
+    section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      padding: 4rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      background: rgba(31, 41, 55, 0.95); 
+      z-index: 20;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      font-weight: 600;
+      transition: height 0.3s ease;
+    }
+    nav .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      gap: 1rem;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    nav .logo img {
+      height: 40px;
+      width: auto;
+      border-radius: 0.25rem;
+    }
+    nav .logo h1 {
+      font-size: 1.5rem;
+      color: white;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown > button {
+      background: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      user-select: none;
+    }
+    .dropdown > button:hover {
+      color: #fbbf24; 
+    }
+    .dropdown > button::after {
+      content: "▼";
+      font-size: 0.6rem;
+      margin-left: 0.3rem;
+      transition: transform 0.3s ease;
+    }
+    .dropdown:hover > button::after {
+      transform: rotate(180deg);
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(31, 41, 55, 0.95);
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      width: max-content;
+      min-width: 150px;
+      padding: 0.5rem 0;
+      z-index: 30;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: flex;
+      animation: slideDown 0.3s ease forwards;
+    }
+    @keyframes slideDown {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .dropdown-menu a {
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      white-space: nowrap;
+      font-weight: 500;
+      transition: background 0.25s, color 0.25s;
+    }
+    .dropdown-menu a:hover {
+      background: #fbbf24;
+      color: #000;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #fbbf24;
+    }
+    .stat-label {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      nav .container {
+        justify-content: flex-start;
+      }
+      nav .dropdown,
+      nav .container > div:last-child {
+        display: none;
+      }
+      nav:hover .dropdown,
+      nav:hover .container > div:last-child {
+        display: flex;
+      }
+      nav {
+        cursor: pointer;
+      }
+    }
+    @media (min-width: 769px) {
+      nav {
+        cursor: default;
+      }
+      nav .dropdown,
+      nav .container > div:last-child {
+        display: flex !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="bg-slideshow"></div>
+  <div id="overlay"></div>
+
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <img src="https://i.postimg.cc/WzZH8Qvj/Screenshot-2025-07-17-150730.png" alt="Robo Raptors Logo" />
+        <h1>Robo Raptors</h1>
+      </div>
+      <div class="dropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Dashboard</button>
+        <div class="dropdown-menu" role="menu" aria-label="Dashboard submenu">
+          <a href="#about" role="menuitem" tabindex="-1">About</a>
+          <a href="#achievements" role="menuitem" tabindex="-1">Achievements</a>
+          <a href="#timeline" role="menuitem" tabindex="-1">Timeline</a>
+          <a href="#state" role="menuitem" tabindex="-1">State Results</a>
+          <a href="#stats" role="menuitem" tabindex="-1">Stats</a>
         </div>
+      </div>
+      <div>
+        <a href="#about" class="px-3 hover:text-yellow-400">About</a>
+        <a href="#achievements" class="px-3 hover:text-yellow-400">Achievements</a>
+        <a href="#timeline" class="px-3 hover:text-yellow-400">Timeline</a>
+        <a href="#state" class="px-3 hover:text-yellow-400">State Results</a>
+        <a href="#stats" class="px-3 hover:text-yellow-400">Stats</a>
       </div>
     </div>
   </nav>
 
-  <!-- Spacer for fixed navbar -->
-  <div class="h-16"></div>
-
-  <!-- Hero Section -->
-  <section id="about" class="max-w-4xl mx-auto px-4 py-10 text-center">
-    <h1 class="text-4xl font-extrabold mb-4 text-blue-900">Welcome to the Robo Raptors Robotics Hub</h1>
-    <p class="text-lg max-w-xl mx-auto leading-relaxed">
-      The 2205H RoboRaptors VEX IQ team is proud to be part of <span class="font-semibold">Robospark Labs</span>, a community of advanced teams focused on innovation and collaboration in robotics. This season, we won the League Teamwork Championship and qualified for the Washington State Championship, where we made it all the way to the Finals. Our journey reflects months of hard work, strategic design, and precise driving. From early scrimmages to high-stakes matches, we’ve grown as both engineers and teammates. We’re excited to keep improving, competing, and inspiring others along the way.
+  <!-- Your sections below unchanged -->
+  <section id="about">
+    <h2 class="text-4xl mb-4">About Us</h2>
+    <p class="max-w-3xl mx-auto text-lg px-4">
+      We are the 2205H Robo Raptors, a proud part of Robospark Labs. We won the League Teamwork Championship, advanced to the State Championship, and made it to the finals. We’re known for hard work, teamwork, and always learning in VEX IQ robotics.
     </p>
   </section>
+  <!-- ... rest of your sections unchanged ... -->
 
-  <!-- Achievements Section -->
-  <section id="achievements" class="max-w-4xl mx-auto px-4 py-10">
-    <h2 class="text-3xl font-bold mb-6 text-blue-900 text-center">🏆 Team Achievements</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
-        <div class="text-4xl text-yellow-400">🥇</div>
-        <div>
-          <h3 class="font-semibold text-lg">League Teamwork Championship</h3>
-          <p>1st Place in the league teamwork challenge.</p>
-        </div>
+  <section id="achievements">
+    <h2 class="text-4xl mb-4">Team Achievements</h2>
+    <ul class="list-disc max-w-xl mx-auto text-left text-lg px-4">
+      <li>Robospark League Finals - League Teamwork Champion</li>
+      <li>Qualified for Washington State Championship 2025</li>
+      <li>Washington State Championship Finalists</li>
+      <li>Part of Robospark Labs Organization</li>
+    </ul>
+  </section>
+
+  <section id="timeline">
+    <h2 class="text-4xl mb-6">2025-2026 Mix and Match Timeline</h2>
+    <div class="space-y-6 max-w-2xl mx-auto px-4">
+      <div class="border-l-4 border-yellow-400 pl-4">
+        <h3 class="text-2xl">Kickoff</h3>
+        <p>Brainstormed designs and made our first prototype.</p>
       </div>
-      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
-        <div class="text-4xl text-blue-600">📜</div>
-        <div>
-          <h3 class="font-semibold text-lg">Qualified for State</h3>
-          <p>Earned spot in the Washington State Championship.</p>
-        </div>
+      <div class="border-l-4 border-yellow-400 pl-4">
+        <h3 class="text-2xl">Iterations</h3>
+        <p>Iterated on our robot and made a completely different robot based on Pro's and Con's of previous robot.</p>
       </div>
-      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
-        <div class="text-4xl text-red-500">⚔️</div>
-        <div>
-          <h3 class="font-semibold text-lg">Finalist at State Championship</h3>
-          <p>Reached the finals round in the state championship.</p>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow p-6 flex items-center space-x-4">
-        <div class="text-4xl text-green-500">🤖</div>
-        <div>
-          <h3 class="font-semibold text-lg">Robospark Labs</h3>
-          <p>Active member team collaborating with other high-level teams.</p>
-        </div>
+      <div class="border-l-4 border-yellow-400 pl-4">
+        <h3 class="text-2xl">Robospark Labs</h3>
+        <p>One of the best teams at Robospark Labs</p>
       </div>
     </div>
   </section>
 
-  <!-- Timeline Section -->
-  <section id="timeline" class="max-w-4xl mx-auto px-4 py-10">
-    <h2 class="text-3xl font-bold mb-6 text-blue-900 text-center">📅 Our Season Timeline</h2>
-    <ol class="border-l-4 border-blue-600 max-w-xl mx-auto space-y-6">
-      <li class="ml-6">
-        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
-        <div class="mt-1">
-          <h3 class="font-semibold text-lg">September</h3>
-          <p>Kickoff meeting & early builds.</p>
-        </div>
-      </li>
-      <li class="ml-6">
-        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
-        <div class="mt-1">
-          <h3 class="font-semibold text-lg">November</h3>
-          <p>Scrimmages and first driving tests.</p>
-        </div>
-      </li>
-      <li class="ml-6">
-        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
-        <div class="mt-1">
-          <h3 class="font-semibold text-lg">January</h3>
-          <p>League competitions – won 1st place in Teamwork Challenge.</p>
-        </div>
-      </li>
-      <li class="ml-6">
-        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
-        <div class="mt-1">
-          <h3 class="font-semibold text-lg">March</h3>
-          <p>Qualified for the State Championship.</p>
-        </div>
-      </li>
-      <li class="ml-6">
-        <span class="inline-block w-6 h-6 bg-blue-600 rounded-full -left-3 relative"></span>
-        <div class="mt-1">
-          <h3 class="font-semibold text-lg">April</h3>
-          <p>Reached the Finals at WA State Championship.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <!-- State Results Modal Trigger -->
-  <section class="max-w-4xl mx-auto px-4 py-10 text-center">
-    <button id="openStateModalBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold focus:outline-none focus:ring-4 focus:ring-green-400">
-      View Full State Championship Results
+  <section id="state">
+    <h2 class="text-4xl mb-4">State Championship Results</h2>
+    <button
+      onclick="document.getElementById('popup').style.display='flex'"
+      class="bg-yellow-400 text-black px-6 py-2 rounded-full hover:bg-yellow-300"
+    >
+      View Full Results
     </button>
   </section>
 
-  <!-- Modal -->
-  <div id="stateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-lg max-w-lg w-11/12 p-6 relative">
-      <button id="closeStateModalBtn" class="absolute top-3 right-3 text-gray-700 hover:text-gray-900 text-2xl font-bold">&times;</button>
-      <h2 class="text-2xl font-bold mb-4 text-blue-900">🏁 WA State Championship – Full Results</h2>
-      <ul class="list-disc list-inside space-y-2 text-left">
-        <li>⚔️ Finalist – Teamwork Challenge</li>
-        <li>🤖 Strong autonomous score in Programming Skills</li>
-        <li>🛠 Consistent performance across all matches</li>
-        <li>👏 Collaborated with alliance teams for Finals</li>
+  <div
+    id="popup"
+    class="hidden fixed inset-0 bg-black bg-opacity-70 justify-center items-center z-50"
+  >
+    <div class="bg-white text-black p-6 rounded-xl max-w-xl">
+      <h2 class="text-2xl mb-4">Washington State Recap 2025</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Finalist Alliance - 10th Overall</li>
+        <li>25th in Qualifications with 112 Point Average</li>
+        <li>26th in skills without Autonomous scoring</li>
       </ul>
+      <button
+        onclick="document.getElementById('popup').style.display='none'"
+        class="mt-6 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+      >
+        Close
+      </button>
     </div>
   </div>
 
+  <section id="stats">
+    <h2 class="text-4xl mb-8">Team Stats (2024-2025)</h2>
+    <div class="stats-grid px-4">
+      <div>
+        <p class="stat-number">6</p>
+        <p class="stat-label">Top 10 Placements</p>
+      </div>
+      <div>
+        <p class="stat-number">1</p>
+        <p class="stat-label">First Place in Teamwork</p>
+      </div>
+      <div>
+        <p class="stat-number">3</p>
+        <p class="stat-label">Years of experience</p>
+      </div>
+      <div>
+        <p class="stat-number">1000+</p>
+        <p class="stat-label">Lessons Learned</p>
+      </div>
+      <div>
+        <p class="stat-number">
+  <span>Top 1%</span>
+   </p>
+        <p class="stat-label">Of Skills Scores Worldwide</p>
+      </div>
+    </div>
+  </section>
+
   <script>
-    const openBtn = document.getElementById('openStateModalBtn');
-    const modal = document.getElementById('stateModal');
-    const closeBtn = document.getElementById('closeStateModalBtn');
+const bgImages = [
+  "https://i.postimg.cc/Qtf8sK9V/PHOTO-2025-03-02-07-19-19.jpg",
+  "https://i.postimg.cc/yYZHpbPD/baa0fe24-413c-4674-8f2c-15b7ebf4a08f.jpg",
+  "https://i.postimg.cc/5tRwKWbK/image0.png",
+  "https://i.postimg.cc/4yCpZvKz/image1.png",  // Image 2 (4th index)
+];
+let currentIndex = 0;
+const bgSlideshow = document.getElementById("bg-slideshow");
 
-    openBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    });
+function changeBackground() {
+  bgSlideshow.style.backgroundImage = `url('${bgImages[currentIndex]}')`;
+  
+  // For the 4th image (index 3), adjust background positioning and size
+  if (currentIndex === 3) {
+    bgSlideshow.style.backgroundPosition = "top center";  // focus on top
+    bgSlideshow.style.backgroundSize = "contain";         // scale down to fit
+  } else {
+    bgSlideshow.style.backgroundPosition = "center center"; // default
+    bgSlideshow.style.backgroundSize = "cover";             // default
+  }
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    });
+  currentIndex = (currentIndex + 1) % bgImages.length;
+}
 
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-      }
-    });
-  </script>
+changeBackground();
+setInterval(changeBackground, 4000);
+</script>
+<section id="contact" class="bg-gray-900 text-white text-center py-12">
+  <h2 class="text-3xl mb-4">Contact Us</h2>
 
+  <p class="text-lg mb-2">
+    Email: <a href="mailto:business.roboraptors@gmail.com" class="text-yellow-400 hover:underline">
+      business.roboraptors@gmail.com
+    </a>
+  </p>
+
+  <p class="text-lg mb-4">
+    We are proudly affiliated with <strong>Robospark Labs</strong>.
+  </p>
+
+  <div class="max-w-md mx-auto mb-8 text-left text-gray-300">
+    <h3 class="text-xl font-semibold mb-2">Robospark Labs LLC</h3>
+    <p>Overlake Business Park - North</p>
+    <p>4130 148th Avenue NE, Suite # JD</p>
+    <p>Redmond, WA 98052, USA</p>
+    <p>Phone: (425) 906-9065</p>
+    <p>Email: <a href="mailto:info@robospark.com" class="text-yellow-400 hover:underline">info@robospark.com</a></p>
+  </div>
+
+  <h3 class="text-xl mt-8 mb-2">Team Members</h3>
+  <p class="text-lg">Keshav, Krishna, Adi, Vivaan</p>
+
+  <p class="mt-6 text-sm text-gray-400">© 2025 Robo Raptors. All rights reserved.</p>
+</section>
 </body>
 </html>
