@@ -228,14 +228,12 @@
     </div>
   </nav>
 
-  <!-- Your sections below unchanged -->
   <section id="about">
     <h2 class="text-4xl mb-4">About Us</h2>
     <p class="max-w-3xl mx-auto text-lg px-4">
       We are the 2205H Robo Raptors, a proud part of Robospark Labs. We won the League Teamwork Championship, advanced to the State Championship, and made it to the finals. We’re known for hard work, teamwork, and always learning in VEX IQ robotics.
     </p>
-  </section>
-  <!-- ... rest of your sections unchanged ... -->
+  </section
 
   <section id="achievements">
     <h2 class="text-4xl mb-4">Team Achievements</h2>
@@ -328,7 +326,7 @@ const bgImages = [
   "https://i.postimg.cc/Qtf8sK9V/PHOTO-2025-03-02-07-19-19.jpg",
   "https://i.postimg.cc/yYZHpbPD/baa0fe24-413c-4674-8f2c-15b7ebf4a08f.jpg",
   "https://i.postimg.cc/5tRwKWbK/image0.png",
-  "https://i.postimg.cc/4yCpZvKz/image1.png",  // Image 2 (4th index)
+  "https://i.postimg.cc/4yCpZvKz/image1.png",  
 ];
 let currentIndex = 0;
 const bgSlideshow = document.getElementById("bg-slideshow");
@@ -336,13 +334,12 @@ const bgSlideshow = document.getElementById("bg-slideshow");
 function changeBackground() {
   bgSlideshow.style.backgroundImage = `url('${bgImages[currentIndex]}')`;
   
-  // For the 4th image (index 3), adjust background positioning and size
   if (currentIndex === 3) {
-    bgSlideshow.style.backgroundPosition = "top center";  // focus on top
-    bgSlideshow.style.backgroundSize = "contain";         // scale down to fit
+    bgSlideshow.style.backgroundPosition = "top center";  
+    bgSlideshow.style.backgroundSize = "contain";         
   } else {
-    bgSlideshow.style.backgroundPosition = "center center"; // default
-    bgSlideshow.style.backgroundSize = "cover";             // default
+    bgSlideshow.style.backgroundPosition = "center center"; 
+    bgSlideshow.style.backgroundSize = "cover";             
   }
 
   currentIndex = (currentIndex + 1) % bgImages.length;
